@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:26:36 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 19:53:22 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:53:06 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_env	*init_env(int fractol)
 	}
 	else
 		env->f = tricorn;
+	env->color_base = 0xFFF;
 	return (env);
 }
 

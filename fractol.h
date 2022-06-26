@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 20:51:56 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 19:46:41 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:58:59 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_env
 	t_comp	julia_c;
 	int		(*f)(struct s_comp, struct s_env *);
 	bool	is_julia_active;
+	int		color_base;
 }	t_env;
 
 t_env	*init_env(int fractol);
@@ -59,6 +60,7 @@ t_comp	add(t_comp a, t_comp b);
 t_comp	multiply(t_comp a, t_comp b);
 double	modulus(t_comp z);
 t_comp	init(double re, double im);
+double	dot(t_comp a, t_comp b);
 
 int		mandelbrot(t_comp c, t_env *env);
 int		julia(t_comp z, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:29:12 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 19:52:07 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:03:07 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,14 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, &s[i], 1);
 		i++;
 	}
+}
+
+int	handle_mouse(int key, int x, int y, t_env *env)
+{
+	if (key == 4)
+		zoom_in(env, x, y);
+	if (key == 5)
+		zoom_out(env, x, y);
+	draw(env);
+	return (0);
 }

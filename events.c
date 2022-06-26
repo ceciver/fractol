@@ -6,25 +6,30 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 14:57:56 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 19:30:38 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:03:12 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	update_delta_from_key(int key, t_comp *delta, t_env *env)
+{
+	if (key == KEY_LEFT)
+		delta->re = -0.1 * (env->re_end - env->re_start);
+	if (key == KEY_RIGHT)
+		delta->re = 0.1 * (env->re_end - env->re_start);
+	if (key == KEY_UP)
+		delta->im = -0.1 * (env->im_end - env->im_start);
+	if (key == KEY_DOWN)
+		delta->im = 0.1 * (env->im_end - env->im_start);
+}
 
 int	handle_keyboard(int key, t_env *env)
 {
 	t_comp	delta;
 
 	delta = init(0, 0);
-	if (key == KEY_LEFT)
-		delta.re = -0.1 * (env->re_end - env->re_start);
-	if (key == KEY_RIGHT)
-		delta.re = 0.1 * (env->re_end - env->re_start);
-	if (key == KEY_UP)
-		delta.im = -0.1 * (env->im_end - env->im_start);
-	if (key == KEY_DOWN)
-		delta.im = 0.1 * (env->im_end - env->im_start);
+	update_delta_from_key(key, &delta, env);
 	if (key == KEY_Z)
 		env->iterations = min(1000, env->iterations + 10);
 	if (key == KEY_N)
@@ -35,6 +40,8 @@ int	handle_keyboard(int key, t_env *env)
 		reset(env);
 	if (key == KEY_S)
 		env->is_julia_active = !env->is_julia_active;
+	if (key == KEY_C)
+		env->color_base = 20 + rand() % (0xFFF - 20);
 	move(env, delta);
 	draw(env);
 	return (0);
@@ -92,14 +99,4 @@ void	zoom_out(t_env *env, int x, int y)
 	env->re_start -= (c2.re - c1.re);
 	env->re_end -= (c2.re - c1.re);
 	draw(env);
-}
-
-int	handle_mouse(int key, int x, int y, t_env *env)
-{
-	if (key == 4)
-		zoom_in(env, x, y);
-	if (key == 5)
-		zoom_out(env, x, y);
-	draw(env);
-	return (0);
 }
