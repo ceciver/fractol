@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:26:36 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 18:48:54 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 19:53:22 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,23 @@ t_env	*init_env(int fractol)
 	env->mlx = mlx_init();
 	env->height = 500;
 	env->width = 500;
-	env->win = mlx_new_window(env->mlx, env->width, env->height, "world!");
-	env->re_start = -2;
-	env->re_end = 2;
-	env->im_start = -2;
-	env->im_end = 2;
+	env->win = mlx_new_window(env->mlx, env->width, env->height, "Fract-ol");
+	reset(env);
 	env->img.img = mlx_new_image(env->mlx, env->width, env->height);
 	env->img.addr = mlx_get_data_addr(env->img.img, &(env->img.bits_per_pixel),
 			&(env->img.line_length), &(env->img.endian));
 	env->iterations = 80;
-	env->julia_c = init(0.285, 0.01);
+	env->julia_c = init(0, 0);
+	env->is_julia_active = false;
 	if (fractol == 0)
 		env->f = mandelbrot;
-	else
+	else if (fractol == 1)
+	{
 		env->f = julia;
+		env->is_julia_active = true;
+	}
+	else
+		env->f = tricorn;
 	return (env);
 }
 

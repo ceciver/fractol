@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 17:55:03 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 18:22:21 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 19:43:58 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,31 @@ t_comp	remap(double x, double y, t_env *env)
 	new_val.re = x * (new_range_x / env->width) + env->re_start;
 	new_val.im = y * (new_range_y / env->height) + env->im_start;
 	return (new_val);
+}
+
+int	ft_atoi(const char *n)
+{
+	int		ans;
+	int		sign;
+	char	*nb;
+
+	ans = 0;
+	sign = 1;
+	nb = (char *)n;
+	while (*nb == ' ' || *nb == '\n' || *nb == '\f'
+		|| *nb == '\r' || *nb == '\t' || *nb == '\v')
+		nb++;
+	if (*nb == '-' || *nb == '+')
+	{
+		if (*nb == '-')
+			sign = -1;
+		nb++;
+	}
+	while (*nb >= '0' && *nb <= '9')
+	{
+		ans *= 10;
+		ans += *nb - '0';
+		nb++;
+	}
+	return (sign * ans);
 }

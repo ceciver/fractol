@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 14:57:56 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 18:31:32 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 19:30:38 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	handle_keyboard(int key, t_env *env)
 	t_comp	delta;
 
 	delta = init(0, 0);
-	printf("%d\n", key);
 	if (key == KEY_LEFT)
 		delta.re = -0.1 * (env->re_end - env->re_start);
 	if (key == KEY_RIGHT)
@@ -32,10 +31,10 @@ int	handle_keyboard(int key, t_env *env)
 		env->iterations = max(40, env->iterations - 10);
 	if (key == KEY_ESCAPE)
 		kill(env);
-	if (key == KEY_ESCAPE)
-		kill(env);
 	if (key == KEY_R)
 		reset(env);
+	if (key == KEY_S)
+		env->is_julia_active = !env->is_julia_active;
 	move(env, delta);
 	draw(env);
 	return (0);
@@ -102,4 +101,5 @@ int	handle_mouse(int key, int x, int y, t_env *env)
 	if (key == 5)
 		zoom_out(env, x, y);
 	draw(env);
+	return (0);
 }

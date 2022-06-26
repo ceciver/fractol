@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:03:27 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 18:42:10 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 19:33:26 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,25 @@ int	julia(t_comp z, t_env *env)
 	n = 0;
 	while (n < env->iterations && modulus(z) <= 2)
 	{
+		z = add(multiply(z, z), c);
+		n++;
+	}
+	if (n == env->iterations)
+		return (n);
+	return (n);
+}
+
+int	tricorn(t_comp c, t_env *env)
+{
+	t_comp	z;
+	int		n;
+
+	z.re = 0;
+	z.im = 0;
+	n = 0;
+	while (n < env->iterations && modulus(z) <= 2)
+	{
+		z.im *= -1;
 		z = add(multiply(z, z), c);
 		n++;
 	}

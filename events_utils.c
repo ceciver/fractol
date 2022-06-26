@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:29:12 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 18:29:26 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 19:52:07 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,27 @@ void	reset(t_env *env)
 	env->re_end = 2;
 	env->im_start = -2;
 	env->im_end = 2;
+}
+
+int	change_julia_c(int x, int y, t_env *env)
+{
+	if (!env->is_julia_active)
+		return (0);
+	env->julia_c = remap(x, y, env);
+	draw(env);
+	return (0);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
 }
