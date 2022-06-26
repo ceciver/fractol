@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   complex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/25 21:05:03 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 14:58:23 by iel-moun         ###   ########.fr       */
+/*   Created: 2022/06/25 21:55:38 by iel-moun          #+#    #+#             */
+/*   Updated: 2022/06/25 22:05:42 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	main(int ac, char **av)
+t_comp	add(t_comp a, t_comp b)
 {
-	t_env	*env;
+	t_comp	c;
 
-	env = init_env(0);
-	draw(env);
-	mlx_hook(env->win, 2, 1L << 0, &handle_keyboard, env);
-	mlx_mouse_hook(env->win, handle_mouse, env);
-	mlx_loop(env->mlx);
+	c.re = a.re + b.re;
+	c.im = a.im + b.im;
+	return (c);
+}
+
+t_comp	multiply(t_comp a, t_comp b)
+{
+	t_comp	c;
+
+	c.re = a.re * b.re - a.im * b.im;
+	c.im = a.re * b.im + a.im * b.re;
+	return (c);
+}
+
+double	modulus(t_comp z)
+{
+	return (sqrt(z.re * z.re + z.im * z.im));
 }
