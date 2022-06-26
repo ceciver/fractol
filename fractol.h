@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 20:51:56 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 14:59:21 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 18:48:27 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+typedef struct s_comp
+{
+	double	re;
+	double	im;
+}	t_comp;
+
 typedef struct s_env
 {
 	void	*mlx;
@@ -40,21 +46,22 @@ typedef struct s_env
 	double	width;
 	double	height;
 	int		iterations;
+	t_comp	julia_c;
+	int		(*f)(struct s_comp, struct s_env *);
 }	t_env;
-
-typedef struct s_comp
-{
-	double	re;
-	double	im;
-}	t_comp;
 
 t_env	*init_env(int fractol);
 void	pixel_put(t_data *data, int x, int y, int color);
+
 t_comp	add(t_comp a, t_comp b);
 t_comp	multiply(t_comp a, t_comp b);
 double	modulus(t_comp z);
-t_comp	remap(double x, double y, t_env *env);
+t_comp	init(double re, double im);
+
 int		mandelbrot(t_comp c, t_env *env);
+int		julia(t_comp z, t_env *env);
+
+t_comp	remap(double x, double y, t_env *env);
 int		get_color(int iterations, t_env *env);
 void	draw(t_env *env);
 
@@ -62,4 +69,11 @@ int		handle_keyboard(int key, t_env *env);
 void	zoom_in(t_env *env, int x, int y);
 void	zoom_out(t_env *env, int x, int y);
 int		handle_mouse(int key, int x, int y, t_env *env);
+
+int		max(int a, int b);
+int		min(int a, int b);
+int		kill(t_env *env);
+
+void	move(t_env *env, t_comp delta);
+void	reset(t_env *env);
 #endif

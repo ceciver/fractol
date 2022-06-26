@@ -1,45 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex.c                                          :+:      :+:    :+:   */
+/*   fractals.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/25 21:55:38 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 18:20:18 by iel-moun         ###   ########.fr       */
+/*   Created: 2022/06/26 18:03:27 by iel-moun          #+#    #+#             */
+/*   Updated: 2022/06/26 18:42:10 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_comp	init(double re, double im)
+int	mandelbrot(t_comp c, t_env *env)
 {
-	t_comp	c;
+	t_comp	z;
+	int		n;
 
-	c.re = re;
-	c.im = im;
-	return (c);
+	z.re = 0;
+	z.im = 0;
+	n = 0;
+	while (n < env->iterations && modulus(z) <= 2)
+	{
+		z = add(multiply(z, z), c);
+		n++;
+	}
+	if (n == env->iterations)
+		return (n);
+	return (n);
 }
 
-t_comp	add(t_comp a, t_comp b)
+int	julia(t_comp z, t_env *env)
 {
+	int		n;
 	t_comp	c;
 
-	c.re = a.re + b.re;
-	c.im = a.im + b.im;
-	return (c);
-}
-
-t_comp	multiply(t_comp a, t_comp b)
-{
-	t_comp	c;
-
-	c.re = a.re * b.re - a.im * b.im;
-	c.im = a.re * b.im + a.im * b.re;
-	return (c);
-}
-
-double	modulus(t_comp z)
-{
-	return (sqrt(z.re * z.re + z.im * z.im));
+	c = env->julia_c;
+	n = 0;
+	while (n < env->iterations && modulus(z) <= 2)
+	{
+		z = add(multiply(z, z), c);
+		n++;
+	}
+	if (n == env->iterations)
+		return (n);
+	return (n);
 }

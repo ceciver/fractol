@@ -6,7 +6,7 @@
 /*   By: iel-moun <iel-moun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 14:57:56 by iel-moun          #+#    #+#             */
-/*   Updated: 2022/06/26 14:58:18 by iel-moun         ###   ########.fr       */
+/*   Updated: 2022/06/26 18:31:32 by iel-moun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,29 @@
 
 int	handle_keyboard(int key, t_env *env)
 {
-	double	re_d;
-	double	im_d;
+	t_comp	delta;
 
-	re_d = 0;
-	im_d = 0;
+	delta = init(0, 0);
+	printf("%d\n", key);
 	if (key == KEY_LEFT)
-		re_d = -0.1 * (env->re_end - env->re_start);
+		delta.re = -0.1 * (env->re_end - env->re_start);
 	if (key == KEY_RIGHT)
-		re_d = 0.1 * (env->re_end - env->re_start);
+		delta.re = 0.1 * (env->re_end - env->re_start);
 	if (key == KEY_UP)
-		im_d = -0.1 * (env->im_end - env->im_start);
+		delta.im = -0.1 * (env->im_end - env->im_start);
 	if (key == KEY_DOWN)
-		im_d = 0.1 * (env->im_end - env->im_start);
-	env->im_start += im_d;
-	env->im_end += im_d;
-	env->re_start += re_d;
-	env->re_end += re_d;
+		delta.im = 0.1 * (env->im_end - env->im_start);
+	if (key == KEY_Z)
+		env->iterations = min(1000, env->iterations + 10);
+	if (key == KEY_N)
+		env->iterations = max(40, env->iterations - 10);
+	if (key == KEY_ESCAPE)
+		kill(env);
+	if (key == KEY_ESCAPE)
+		kill(env);
+	if (key == KEY_R)
+		reset(env);
+	move(env, delta);
 	draw(env);
 	return (0);
 }
